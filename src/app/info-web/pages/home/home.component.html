@@ -5,7 +5,12 @@
 <div class="reservation-form" fxLayoutAlign="center center">
   <mat-card fxLayout="column">
     <form *ngIf="reservationForm" [formGroup]="reservationForm">
-      <div fxlayout="row" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="10px">
+      <div
+        fxlayout="row"
+        fxLayout.gt-md="row"
+        fxLayout.lt-md="column"
+        fxLayoutGap="10px"
+      >
         <div fxFlex>
           <mat-form-field fxFill appearance="fill">
             <mat-label> Fecha desde </mat-label>
@@ -76,9 +81,9 @@
             <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
               <mat-option
                 *ngFor="let option of filteredOptions | async"
-                [value]="option"
+                value="{{ option?.name }}"
               >
-                {{ option }}
+                {{ option?.name }}
               </mat-option>
             </mat-autocomplete>
             <mat-error

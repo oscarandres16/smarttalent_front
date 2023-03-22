@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
+import Swal from 'sweetalert2';
 import { DashboardService } from './../../services/dashboard.service';
 
 @Component({
@@ -13,6 +14,7 @@ export class HotelsComponent implements OnInit {
   destinations$ = new BehaviorSubject<any[]>([]);
   results$ = new BehaviorSubject<any>(null);
   optionsTable: any = {};
+  filteredOptions!: Observable<any[]>;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -27,7 +29,6 @@ export class HotelsComponent implements OnInit {
 
   getDestinations() {
     this.dashboardService.getDestinos().then((data: any) => {
-      console.log(data);
       this.destinations$.next(data);
     });
   }
@@ -37,6 +38,22 @@ export class HotelsComponent implements OnInit {
       name: ['' || null],
       idDestination: ['' || null],
     });
+    this.destinations$.subscribe((data) => {
+      if (data)
+        this.filteredOptions = this.form?.controls?.[
+          'idDestination'
+        ].valueChanges.pipe(
+          startWith(''),
+          map((value) => this._filter(value || ''))
+        );
+    });
+  }
+
+  _filter(value: string): string[] {
+    const filterValue = value.toLowerCase();
+    return this.destinations$.value.filter((option: any) =>
+      option?.name.toLowerCase().includes(filterValue)
+    );
   }
 
   cleanForm() {
@@ -46,6 +63,7 @@ export class HotelsComponent implements OnInit {
 
   continue() {
     const { name, idDestination } = this.form.value;
+    this.results$.next(null);
     if (name || idDestination) {
       this.getHotels();
     } else {
@@ -59,17 +77,31 @@ export class HotelsComponent implements OnInit {
   }
 
   getHotels() {
-    this.dashboardService.getHotels(this.form.value).then((data: any) => {
-      this.results$.next(data);
-      this.setOptionsTable(data);
-    });
+    const idDestination = this.destinations$.value.filter((option: any) => {
+      return option.name === this.form.value.idDestination;
+    })[0]?.id;
+    const { name } = this.form.value;
+    this.dashboardService
+      .getHotels({ name, idDestination })
+      .then((data: any) => {
+        if (data?.length > 0) {
+          this.results$.next(data);
+          this.setOptionsTable(data);
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No se han encontrado resultados!',
+          });
+        }
+      });
   }
 
   setOptionsTable(dataSource: any[] = []) {
     this.optionsTable = {
       titleTable: 'Resultado consulta',
       columnLabels: ['Id', 'Nombre', 'Destino'],
-      columnKeys: ['id', 'name', 'idDestination'],
+      columnKeys: ['id', 'name', 'nameDestination'],
       dataSource: dataSource,
       hasTopButtons: false,
     };

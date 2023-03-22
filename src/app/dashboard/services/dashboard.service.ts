@@ -42,7 +42,6 @@ export class DashboardService {
         .from('Hotels')
         .insert([value])
         .then((data) => {
-          console.log('data', data);
           resolve(data);
         })
         .then((error) => {
@@ -56,12 +55,18 @@ export class DashboardService {
       if (value.idDestination && value.name) {
         this.supabaseAuthService.supabase
           .from('Hotels')
-          .select('*')
+          .select(`*,Destinations!inner(*)'`)
           .eq('idDestination', value.idDestination)
-          .like('name', value.name)
+          .eq('Destinations.id', value.idDestination)
+          .ilike('name', `%${value.name}%`)
           .then((data) => {
-            console.log('data', data);
-            resolve(data.data);
+            const mapData = data?.data?.map((item: any) => {
+              return {
+                ...item,
+                nameDestination: item.Destinations.name,
+              };
+            });
+            resolve(mapData);
           })
           .then((error) => {
             reject(error);
@@ -69,11 +74,17 @@ export class DashboardService {
       } else if (value.idDestination && !value.name) {
         this.supabaseAuthService.supabase
           .from('Hotels')
-          .select('*')
+          .select(`*,Destinations!inner(*)'`)
           .eq('idDestination', value.idDestination)
+          .eq('Destinations.id', value.idDestination)
           .then((data) => {
-            console.log('data', data);
-            resolve(data.data);
+            const mapData = data?.data?.map((item: any) => {
+              return {
+                ...item,
+                nameDestination: item.Destinations.name,
+              };
+            });
+            resolve(mapData);
           })
           .then((error) => {
             reject(error);
@@ -82,15 +93,29 @@ export class DashboardService {
         this.supabaseAuthService.supabase
           .from('Hotels')
           .select('*')
-          .like('name', value.name)
+          .ilike('name', `%${value.name}%`)
           .then((data) => {
-            console.log('data', data);
             resolve(data.data);
           })
           .then((error) => {
             reject(error);
           });
       }
+    });
+  }
+
+  addDestination(name: any) {
+    const tempId = new Date().getTime();
+    return new Promise((resolve, reject) => {
+      this.supabaseAuthService.supabase
+        .from('Destinations')
+        .insert([{ id: tempId, name: name }])
+        .then((data) => {
+          resolve(data);
+        })
+        .then((error) => {
+          reject(error);
+        });
     });
   }
 }

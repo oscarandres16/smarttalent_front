@@ -28,7 +28,7 @@ export class NavbarComponent {
       {
         label: 'Configuración',
         icon: 'settings',
-        route: 'configuracion',
+        route: 'settings',
       },
     ];
   }

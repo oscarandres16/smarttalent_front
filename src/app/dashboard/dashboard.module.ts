@@ -1,3 +1,4 @@
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -22,6 +23,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { TableComponent } from './components/table/table.component';
 import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { FormDestinosComponent } from './pages/form-destinos/form-destinos.component';
+import { SettinsComponent } from './pages/settins/settins.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     DestinationsComponent,
     FormHotelComponent,
     TableComponent,
+    FormDestinosComponent,
+    SettinsComponent,
   ],
   imports: [
     CommonModule,
@@ -49,7 +54,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatSelectModule,
     MatDialogModule,
     MatTableModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatAutocompleteModule
   ],
 })
 export class DashboardModule {}

@@ -1,3 +1,5 @@
+import { SettinsComponent } from './pages/settins/settins.component';
+import { FormDestinosComponent } from './pages/form-destinos/form-destinos.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
@@ -25,6 +27,17 @@ const routes: Routes = [
         data: { mode: 'edit' },
       },
       { path: 'destinations', component: DestinationsComponent },
+      {
+        path: 'add-destionation',
+        component: FormDestinosComponent,
+        data: { mode: 'add' },
+      },
+      {
+        path: 'edit-destionation/:id',
+        component: FormDestinosComponent,
+        data: { mode: 'edit' },
+      },
+      { path: 'settings', component: SettinsComponent },
     ],
   },
 ];

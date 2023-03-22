@@ -1,0 +1,8 @@
+.file-name {
+  cursor: pointer;
+  color: grey;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

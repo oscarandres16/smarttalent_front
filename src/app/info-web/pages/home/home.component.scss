@@ -7,14 +7,18 @@
   color: white;
 
   h1 {
-    font-size: 4em;
-    font-weight: 700;
-    margin: 0;
+    color: white;
+    font-size: 3em;
+    font-weight: 600;
+    margin-top: 20px;
+    text-shadow: 2px 2px 4px #000000;
   }
 
   span {
+    color: white;
     font-size: 1.5em;
     font-weight: 300;
+    text-shadow: 2px 2px 4px #000000;
   }
 }
 

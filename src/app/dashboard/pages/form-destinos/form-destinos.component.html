@@ -1,0 +1,62 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <mat-card
+    class="consult-card-title"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <div fxFlex>
+      <button mat-mini-fab class="return-button" (click)="return()">
+        <mat-icon> arrow_back </mat-icon>
+      </button>
+    </div>
+    <div fxFlex="100" fxLayoutAlign="center center">
+      <h1 *ngIf="mode === 'add'" class="title-page">Agregar hotel</h1>
+      <h1 *ngIf="mode === 'edit'" class="title-page">
+        Editar - {{ destinationInformation.name }}
+      </h1>
+      <h1 *ngIf="mode === 'view'" class="title-page">
+        {{ destinationInformation.name }}
+      </h1>
+    </div>
+  </mat-card>
+  <mat-card class="consult-card-form">
+    <form [formGroup]="form" fxLayout="column" fxLayoutGap="10px">
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="10px"
+      >
+        <div fxFlex fxFill>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              placeholder="Digite el nombre del destino"
+              maxlength="50"
+            />
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <div fxFlex fxLayoutAlign="end">
+          <button mat-stroked-button color="primary" (click)="cleanForm()">
+            Limpiar formulario
+          </button>
+        </div>
+        <div fxFlex fxLayoutAlign="start">
+          <button mat-raised-button color="primary" (click)="continue()">
+            Consultar
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

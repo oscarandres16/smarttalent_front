@@ -1,3 +1,4 @@
+import { HomeService } from './../services/home.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
@@ -8,14 +9,25 @@ import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
 })
 export class HomeComponent implements OnInit {
   reservationForm!: UntypedFormGroup;
-  filteredOptions!: Observable<string[]>;
+  filteredOptions!: Observable<any[]>;
   hotelList = new BehaviorSubject<any[]>([]);
+  destinations$ = new BehaviorSubject<any[]>([]);
 
-  constructor(private formBuilder: FormBuilder) {}
+  constructor(
+    private formBuilder: FormBuilder,
+    private homeService: HomeService
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
     this.getHotelList();
+    this.getDestinations();
+  }
+
+  getDestinations() {
+    this.homeService.getDestinos().then((data: any) => {
+      this.destinations$.next(data);
+    });
   }
 
   getHotelList() {
@@ -102,36 +114,30 @@ export class HomeComponent implements OnInit {
       dateTo: ['' || null, Validators.required],
       noPersons: ['' || null, Validators.required],
       destination: ['' || null, Validators.required],
+      idDestination: ['' || null],
     });
-    this.filteredOptions = this.reservationForm?.controls?.[
-      'destination'
-    ].valueChanges.pipe(
-      startWith(''),
-      map((value) => this._filter(value || ''))
-    );
+    this.destinations$.subscribe((data) => {
+      if (data)
+        this.filteredOptions = this.reservationForm?.controls?.[
+          'destination'
+        ].valueChanges.pipe(
+          startWith(''),
+          map((value) => this._filter(value || ''))
+        );
+    });
   }
 
   _filter(value: string): string[] {
-    const fakeDestinations = [
-      'Budapest',
-      'London',
-      'Paris',
-      'Rome',
-      'New York',
-      'Tokyo',
-      'Sydney',
-      'Moscow',
-      'Beijing',
-      'Cairo',
-      'Rabat',
-    ];
     const filterValue = value.toLowerCase();
-    return fakeDestinations.filter((option: string) =>
-      option.toLowerCase().includes(filterValue)
+    return this.destinations$.value.filter((option: any) =>
+      option?.name.toLowerCase().includes(filterValue)
     );
   }
 
   consult() {
+    const idDestination = this.destinations$.value.filter((option: any) => {
+      return option.name === this.reservationForm.value.destination;
+    })[0].id;
     if (this.reservationForm.valid) {
       alert('Consulting...');
     } else {

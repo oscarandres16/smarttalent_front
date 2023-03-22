@@ -41,16 +41,28 @@
         </div>
         <div fxFlex fxFill>
           <mat-form-field appearance="fill" fxFill>
-            <mat-icon matPrefix>list</mat-icon>
-            <mat-label> Destino </mat-label>
-            <mat-select formControlName="idDestination">
+            <mat-icon matPrefix> location_on </mat-icon>
+            <mat-label>Destino</mat-label>
+            <input
+              type="text"
+              placeholder="Busque y seleccione su destino"
+              matInput
+              formControlName="idDestination"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
               <mat-option
-                *ngFor="let destination of destinations$ | async"
-                [value]="destination.id"
+                *ngFor="let option of filteredOptions | async"
+                [value]="option.name"
               >
-                {{ destination.name }}
+                {{ option?.name }}
               </mat-option>
-            </mat-select>
+            </mat-autocomplete>
+            <mat-error
+              *ngIf="form?.controls?.['idDestination']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
           </mat-form-field>
         </div>
       </div>
@@ -77,9 +89,12 @@
           (change)="onFileSelected($event)"
           accept="image/*"
         />
-        <p *ngIf="form?.controls?.['photo']?.value">
-          {{form?.controls?.['photo']?.value?.name}}
-        </p>
+        <span
+        class="file-name"
+          *ngIf="form?.controls?.['photo']?.value"
+          (click)="openSelectedPhotoAsBlob()"
+          >{{ photoFile.name }}</span
+        >
       </div>
       <div
         fxLayout="row"
