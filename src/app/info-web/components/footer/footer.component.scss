@@ -1,0 +1,16 @@
+.footer {
+  width: 100%;
+  // background: linear-gradient(rgba(120, 3, 199, 0.5), rgba(120, 3, 199, 0.3));
+  padding: 20px;
+  height: 150px;
+
+  span {
+    font-weight: 600;
+    a {
+      color: #560eec;
+      &:hover {
+        color: rgba($color: #8205a8, $alpha: 1.0);
+      }
+    }
+  }
+}

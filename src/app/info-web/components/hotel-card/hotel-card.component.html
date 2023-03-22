@@ -1,0 +1,34 @@
+<mat-card fxLayout="column">
+  <div
+    fxLayout="column"
+    fxLayoutAlign="end"
+    class="hotel-img"
+    style="background-image: url({{ hotelData?.img }})"
+  >
+    <span class="location" fxLayout="row" fxLayoutAlign="start center">
+      <mat-icon>location_on</mat-icon>
+      {{ hotelData?.location }}
+    </span>
+  </div>
+  <div fxlayout="column" class="content">
+    <h3 class="name">
+      {{ hotelData?.name }}
+    </h3>
+    <div fxLayout="row">
+      <div class="grade" fxFlex fxLayoutAlign="start center" fxLayoutGap="5px">
+        <span>{{ hotelData?.calification }}/5</span>
+        <mat-icon mat-suffix>star</mat-icon>
+        <span>Excelente</span>
+      </div>
+      <div class="review" fxFlex fxLayoutAlign="start center">
+        <span>({{ hotelData?.reviews }} reviews)</span>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="5px">
+      <h3>
+        {{ hotelData?.price | currency }}
+      </h3>
+      <span>Precio desde</span>
+    </div>
+  </div>
+</mat-card>

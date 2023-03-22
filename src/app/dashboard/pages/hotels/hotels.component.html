@@ -1,0 +1,89 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <h1 class="title-page">Hoteles</h1>
+  <mat-card class="consult-card-form" fxLayout="column" fxLayoutGap="10px">
+    <div
+      fxLayout="row"
+      fxLayout.lt-md="column"
+      fxLayoutAlign="space-between center"
+    >
+      <div fxFlex>Ingrese al menos un criterio para realizar la consulta</div>
+      <div>
+        <button mat-raised-button color="primary" (click)="addHotel()">
+          <mat-icon>add</mat-icon>
+          Agregar hotel
+        </button>
+      </div>
+    </div>
+    <form [formGroup]="form">
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="10px"
+      >
+        <div fxFlex>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-label>Nombre</mat-label>
+            <input
+              matInput
+              formControlName="name"
+              placeholder="Digite el nombre del destino"
+              maxlength="50"
+            />
+          </mat-form-field>
+        </div>
+        <div fxFlex>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix>list</mat-icon>
+            <mat-label> Destino </mat-label>
+            <mat-select formControlName="idDestination">
+              <mat-option
+                *ngFor="let destination of destinations$ | async"
+                [value]="destination.id"
+              >
+                {{ destination.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <div fxFlex fxLayoutAlign="end">
+          <button mat-stroked-button color="primary" (click)="cleanForm()">
+            Limpiar formulario
+          </button>
+        </div>
+        <div fxFlex fxLayoutAlign="start">
+          <button mat-raised-button color="primary" (click)="continue()">
+            Consultar
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+  <mat-card
+    *ngIf="results$ | async"
+    class="consult-card-result"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <app-table #table fxFill [optionsTable]="optionsTable"></app-table>
+  </mat-card>
+  <mat-card
+    *ngIf="!results$.value"
+    class="consult-card-empty"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <span class="empty-consult">
+      Para visualizar la información primero debe realizar la consulta.
+    </span>
+  </mat-card>
+</div>

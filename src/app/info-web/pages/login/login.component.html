@@ -1,0 +1,61 @@
+<div class="section" fxLayout="row" fxLayout.lt-md="column">
+  <div fxFlex class="img-login" fxLayout="column" fxLayoutAlign="center center">
+    <h1>El placer de viajar</h1>
+    <span>Cada viaje es una nueva experiencia</span>
+  </div>
+  <div fxFlex class="form" fxLayout="column" fxLayoutAlign="center center">
+    <mat-card
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayoutGap="20px"
+    >
+      <h2>Iniciar sesión</h2>
+      <form [formGroup]="form" fxLayout="column" fxLayoutGap="20px">
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix> people </mat-icon>
+            <mat-label> Usuario </mat-label>
+            <input
+              matInput
+              type="email"
+              formControlName="email"
+              placeholder="Digite su usuario"
+            />
+            <mat-error
+              *ngIf="form?.controls?.['email']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="20px">
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix> people </mat-icon>
+            <mat-label> Contraseña </mat-label>
+            <input
+              matInput
+              type="password"
+              formControlName="password"
+              placeholder="Digite su contraseña"
+            />
+            <mat-error
+              *ngIf="form?.controls?.['password']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div
+          fxLayout="row"
+          fxLayout.lt-md="column"
+          fxLayoutGap="20px"
+          fxLayoutAlign="center center"
+        >
+          <button mat-raised-button color="primary" class="continue-button" (click)="continue()">
+            Continuar
+          </button>
+        </div>
+      </form>
+    </mat-card>
+  </div>
+</div>

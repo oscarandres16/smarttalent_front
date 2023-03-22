@@ -1,0 +1,50 @@
+mat-card {
+  border-radius: 15px;
+  border: 1px solid rgba($color: #000000, $alpha: 0.1);
+  width: 350px;
+  cursor: pointer;
+  transition: transform .5s ease;
+  margin: auto;
+
+  .hotel-img {
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    .location {
+      color: white;
+      font-weight: 700;
+      padding-bottom: 5px;
+      background: linear-gradient(rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.5));
+    }
+  }
+
+  .content {
+    padding: 0px 20px;
+
+    .name {
+      color: black;
+      font-size: 20px;
+      font-weight: 700;
+    }
+
+    .grade {
+      color: #560eec;
+      font-size: 20px;
+    }
+
+    .review {
+      color: gray;
+      font-size: 12px;
+    }
+  }
+
+  &:hover {
+    box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.1);
+    transform: scale(1.01);
+  }
+}

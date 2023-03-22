@@ -1,0 +1,78 @@
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  background-color: #d5c6dc;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #560eec;
+}
+
+.consult-card-title {
+  padding: 0px 10px;
+  width: 90% !important;
+}
+
+.consult-card-form {
+  padding: 15px;
+  width: 90% !important;
+}
+
+.consult-card-result {
+  padding: 15px;
+  width: 90% !important;
+}
+
+.consult-card-empty {
+  padding: 15px;
+  height: 35vh;
+  width: 90% !important;
+  color: grey;
+}
+
+.title-page {
+  color: #560eec;
+}
+
+.consult-title {
+  color: #560eec;
+}
+
+.mat-mdc-dialog-actions {
+  display: flex;
+  justify-content: center !important;
+}
+
+.mat-mdc-dialog-title {
+  text-align: center;
+  color: #560eec !important;
+  font-size: large !important;
+  font-weight: bold !important;
+}
+
+.return-button {
+  background-color: #560eec !important;
+  color: white !important;
+}
+
+.mat-mdc-checkbox.mat-accent {
+  --mdc-checkbox-selected-icon-color: #560eec;
+}

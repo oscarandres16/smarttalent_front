@@ -1,0 +1,40 @@
+.principal-div {
+  padding: 10px;
+  margin: 10px;
+
+  table {
+    width: 100%;
+  }
+
+  .tableTitle {
+    color: #815c97;
+    font-weight: bold;
+  }
+
+  .top-button {
+    color: white;
+    background-color: #815c97;
+    border: 1px solid #815c97;
+  }
+
+  .top-button:hover {
+    color: #815c97;
+    background-color: white;
+    border: 1px solid #815c97;
+    font-weight: 600;
+  }
+
+  .mat-row:hover {
+    background-color: #f5f5f5 !important;
+    cursor: default;
+  }
+
+  .mat-header-row {
+    background-color: #381a49;
+  }
+
+  .mat-header-cell {
+    font-weight: bold;
+    color: white;
+  }
+}

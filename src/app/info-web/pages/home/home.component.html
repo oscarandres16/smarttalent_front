@@ -1,0 +1,113 @@
+<div class="principal-banner" fxLayout="column" fxLayoutAlign="center center">
+  <h1>Exploremos el mundo juntos</h1>
+  <span>Encontremos la habitación ideal para ti</span>
+</div>
+<div class="reservation-form" fxLayoutAlign="center center">
+  <mat-card fxLayout="column">
+    <form *ngIf="reservationForm" [formGroup]="reservationForm">
+      <div fxlayout="row" fxLayout.gt-md="row" fxLayout.lt-md="column" fxLayoutGap="10px">
+        <div fxFlex>
+          <mat-form-field fxFill appearance="fill">
+            <mat-label> Fecha desde </mat-label>
+            <input
+              formControlName="dateFrom"
+              matInput
+              [matDatepicker]="dp"
+              placeholder="dd/mm/aaaa"
+            />
+            <mat-error
+              *ngIf="reservationForm?.controls?.['dateFrom']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+            <mat-datepicker-toggle matSuffix [for]="dp">
+            </mat-datepicker-toggle>
+            <mat-datepicker #dp></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex>
+          <mat-form-field fxFill appearance="fill">
+            <mat-label> Fecha desde </mat-label>
+            <input
+              formControlName="dateTo"
+              matInput
+              [matDatepicker]="dp2"
+              placeholder="dd/mm/aaaa"
+            />
+            <mat-error
+              *ngIf="reservationForm?.controls?.['dateTo']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+            <mat-datepicker-toggle matSuffix [for]="dp2">
+            </mat-datepicker-toggle>
+            <mat-datepicker #dp2></mat-datepicker>
+          </mat-form-field>
+        </div>
+        <div fxFlex>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix style="color: grey"> people </mat-icon>
+            <mat-label> Ocupantes </mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="noPersons"
+              min="1"
+              placeholder="Digite el número de ocupantes"
+            />
+            <mat-error
+              *ngIf="reservationForm?.controls?.['noPersons']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix style="color: grey"> location_on </mat-icon>
+            <mat-label>Destino</mat-label>
+            <input
+              type="text"
+              placeholder="Busque y seleccione su destino"
+              matInput
+              formControlName="destination"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of filteredOptions | async"
+                [value]="option"
+              >
+                {{ option }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error
+              *ngIf="reservationForm?.controls?.['destination']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+    </form>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <button
+        mat-raised-button
+        color="primary"
+        class="consult-button"
+        (click)="consult()"
+      >
+        Consultar
+      </button>
+    </div>
+  </mat-card>
+</div>
+<div class="explore-hotels" fxLayout="column" fxLayoutAlign="center center">
+  <h1>Explora nuestros hoteles</h1>
+  <div class="hotel-grid">
+    <app-hotel-card
+      *ngFor="let hotel of hotelList | async"
+      [hotelData]="hotel"
+    ></app-hotel-card>
+  </div>
+</div>

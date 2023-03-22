@@ -1,0 +1,44 @@
+<div
+  class="superior-navbar"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  fxLayoutGap="10px"
+>
+  <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="10px">
+    <div fxFlex fxLayoutAlign="center center" fxLayoutGap="5px">
+      <div fxFlex>
+        <a href="http://facebook.com" target="_blank">FB</a>
+      </div>
+      <div fxFlex>
+        <a href="http://twitter.com" target="_blank">TW</a>
+      </div>
+      <div fxFlex>
+        <a href="http://instagram.com" target="_blank">IG</a>
+      </div>
+      <div fxFlex>
+        <a href="http://linkedin.com" target="_blank">iN</a>
+      </div>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div fxFlex fxLayoutAlign="center center">
+      <a class="telefono" href="tel:+57 312 123 4567">+57 312 123 4567</a>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div fxFlex fxLayoutAlign="center center">
+      <a class="email" href="mailto:contact@despegar.com">contact@despegar.com</a>
+    </div>
+  </div>
+  <div
+    fxLayout="row"
+    fxLayout.lt-md="column"
+    fxLayoutGap="10px"
+  >
+    <div fxFlex fxLayoutAlign="center center">
+      <a routerLink="home"> Inicio </a>
+    </div>
+    <mat-divider [vertical]="true"></mat-divider>
+    <div fxFlex fxLayoutAlign="center center">
+      <a routerLink="login"> Iniciar sesión </a>
+    </div>
+  </div>
+</div>

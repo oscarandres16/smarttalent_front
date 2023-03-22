@@ -1,0 +1,71 @@
+.principal-banner {
+  background-image: url(../../../../assets/img/home_bg.png);
+  background-size: cover;
+  background-position: top 50% center;
+  height: 800px;
+  width: 100%;
+  color: white;
+
+  h1 {
+    font-size: 4em;
+    font-weight: 700;
+    margin: 0;
+  }
+
+  span {
+    font-size: 1.5em;
+    font-weight: 300;
+  }
+}
+
+.reservation-form {
+  position: relative;
+  top: -100px;
+  z-index: 1000;
+
+  mat-card {
+    width: max-content;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+
+    .consult-button {
+      width: 200px;
+      margin-top: 20px;
+      font-size: 1.2em;
+      height: 50px;
+      background-color: #560eec;
+    }
+  }
+}
+
+.explore-hotels {
+  background: linear-gradient(rgba(0, 0, 0, 0), rgba(86, 14, 236, 0.5));
+  padding-bottom: 20px;
+
+  h1 {
+    border-bottom: 4px solid #560eec;
+  }
+
+  .hotel-grid {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .hotel-grid {
+      width: 100%;
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .hotel-grid {
+      width: 100%;
+      grid-template-columns: repeat(1, 1fr);
+    }
+  }
+}
