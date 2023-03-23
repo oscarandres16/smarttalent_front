@@ -53,13 +53,13 @@ export class FormDestinosComponent {
           if (data.status === 200 || data.status === 201) {
             Swal.fire({
               icon: 'success',
-              title: 'Hotel agreado correctamente!',
+              title: 'Destino agreado correctamente!',
               text:
-                'Se ha registrado el hotel ' +
+                'Se ha registrado el Destino ' +
                 this.form.value.name +
                 ' correctamente',
             });
-            this.router.navigateByUrl('/dashboard/hotels');
+            this.router.navigateByUrl('/dashboard/destionations');
           }
         });
     }
