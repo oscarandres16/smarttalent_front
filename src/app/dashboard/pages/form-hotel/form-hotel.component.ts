@@ -44,7 +44,6 @@ export class FormHotelComponent implements OnInit {
 
   getDestinations() {
     this.dashboardService.getDestinos().then((data: any) => {
-      console.log(data);
       this.destinations$.next(data);
     });
   }

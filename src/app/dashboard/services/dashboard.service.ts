@@ -118,4 +118,80 @@ export class DashboardService {
         });
     });
   }
+
+  getAllHotels() {
+    return new Promise((resolve, reject) => {
+      this.supabaseAuthService.supabase
+        .from('Hotels')
+        .select(`*,Destinations!inner(*)'`)
+        .then((data) => {
+          const mapData = data?.data?.map((item: any) => {
+            return {
+              ...item,
+              nameDestination: item.Destinations.name,
+            };
+          });
+          resolve(mapData);
+        })
+        .then((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  getRooms() {
+    return new Promise((resolve, reject) => {
+      this.supabaseAuthService.supabase
+        .from('Rooms')
+        .select(`*`)
+        .then((data) => {
+          resolve(data?.data);
+        })
+        .then((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  getAllRoomTypes() {
+    return new Promise((resolve, reject) => {
+      this.supabaseAuthService.supabase
+        .from('RoomsType')
+        .select(`*`)
+        .then((data) => {
+          resolve(data.data);
+        })
+        .then((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  addRoom(body: any) {
+    return new Promise((resolve, reject) => {
+      this.supabaseAuthService.supabase
+        .from('Rooms')
+        .insert([body])
+        .then((data) => {
+          resolve(data);
+        })
+        .then((error) => {
+          reject(error);
+        });
+    });
+  }
+
+  getAllBookings() {
+    return new Promise((resolve, reject) => {
+      this.supabaseAuthService.supabase
+        .from('Bookings')
+        .select(`*`)
+        .then((data) => {
+          resolve(data?.data);
+        })
+        .then((error) => {
+          reject(error);
+        });
+    });
+  }
 }

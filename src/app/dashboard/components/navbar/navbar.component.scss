@@ -44,16 +44,10 @@ mat-sidenav {
   .menu-item {
     cursor: pointer;
     color: #560eec;
+    text-decoration: none;
 
     .menu-icon {
       width: 30px;
-    }
-
-    .icon-menu-container-active {
-      border: 1px solid white;
-      border-radius: 10px;
-      background-color: white;
-      padding: 10px;
     }
 
     .icon-menu-container {
@@ -61,6 +55,16 @@ mat-sidenav {
       border-radius: 10px;
       background-color: transparent;
       padding: 10px;
+    }
+  }
+
+  .active {
+    color: white !important;
+    background-color: #560eec;
+    border-radius: 10px;
+
+    span {
+      color: white !important;
     }
   }
 }

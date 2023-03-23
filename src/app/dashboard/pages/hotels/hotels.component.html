@@ -59,6 +59,9 @@
           </mat-form-field>
         </div>
       </div>
+      <mat-error *ngIf="form.hasError('oneRequired')">
+        Debe seleccionar al menos un campo
+      </mat-error>
       <div
         fxLayout="row"
         fxLayout.lt-md="column"

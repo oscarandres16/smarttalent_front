@@ -1,30 +1,35 @@
-import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { MatInputModule } from '@angular/material/input';
 
-import { DashboardRoutingModule } from './dashboard-routing.module';
-import { DashboardComponent } from './dashboard.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { HomeComponent } from './pages/home/home.component';
 import { FlexModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatSidenavModule } from '@angular/material/sidenav';
-import { HotelsComponent } from './pages/hotels/hotels.component';
-import { DestinationsComponent } from './pages/destinations/destinations.component';
-import { MatSelectModule } from '@angular/material/select';
-import { FormHotelComponent } from './pages/form-hotel/form-hotel.component';
-import { MatDialogModule } from '@angular/material/dialog';
-import { TableComponent } from './components/table/table.component';
-import { MatTableModule } from '@angular/material/table';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatSelectModule } from '@angular/material/select';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatTableModule } from '@angular/material/table';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { TableComponent } from './components/table/table.component';
+import { DashboardRoutingModule } from './dashboard-routing.module';
+import { DashboardComponent } from './dashboard.component';
+import { DestinationsComponent } from './pages/destinations/destinations.component';
 import { FormDestinosComponent } from './pages/form-destinos/form-destinos.component';
-import { SettinsComponent } from './pages/settins/settins.component';
+import { FormHotelComponent } from './pages/form-hotel/form-hotel.component';
+import { FormRoomComponent } from './pages/form-room/form-room.component';
+import { HomeComponent } from './pages/home/home.component';
+import { HotelsComponent } from './pages/hotels/hotels.component';
+import { RoomsComponent } from './pages/rooms/rooms.component';
+import { SettingsComponent } from './pages/settings/settings.component';
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +41,10 @@ import { SettinsComponent } from './pages/settins/settins.component';
     FormHotelComponent,
     TableComponent,
     FormDestinosComponent,
-    SettinsComponent,
+    RoomsComponent,
+    FormRoomComponent,
+    SettingsComponent,
+    NotFoundComponent,
   ],
   imports: [
     CommonModule,
@@ -55,7 +63,9 @@ import { SettinsComponent } from './pages/settins/settins.component';
     MatDialogModule,
     MatTableModule,
     MatCheckboxModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
   ],
 })
 export class DashboardModule {}

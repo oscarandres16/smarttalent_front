@@ -1,5 +1,5 @@
 <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
-  <h1 class="title-page">Reservaciones</h1>
+  <h1 class="title-page">Habitaciones</h1>
   <mat-card class="consult-card-form" fxLayout="column" fxLayoutGap="10px">
     <div
       fxLayout="row"
@@ -7,9 +7,14 @@
       fxLayoutAlign="space-between center"
     >
       <div fxFlex>Ingrese al menos un criterio para realizar la consulta</div>
+      <div>
+        <button mat-raised-button color="primary" (click)="addRoom()">
+          <mat-icon>add</mat-icon>
+          Agregar habitación
+        </button>
+      </div>
     </div>
     <form [formGroup]="form">
-      <!-- Primera columna -->
       <div
         fxLayout="row"
         fxLayout.lt-md="column"
@@ -18,103 +23,15 @@
       >
         <div fxFlex>
           <mat-form-field appearance="fill" fxFill>
-            <mat-icon matPrefix>confirmation_number</mat-icon>
-            <mat-label>Nro reservación</mat-label>
+            <mat-label>Nombre</mat-label>
             <input
               matInput
-              formControlName="id"
-              placeholder="Digite el número de reservación"
+              formControlName="name"
+              placeholder="Digite el nombre del destino"
+              maxlength="50"
             />
           </mat-form-field>
         </div>
-        <div fxFlex>
-          <mat-form-field fxFill appearance="fill">
-            <mat-label> Fecha desde </mat-label>
-            <input
-              formControlName="dateFrom"
-              matInput
-              [matDatepicker]="dp"
-              placeholder="dd/mm/aaaa"
-            />
-            <mat-error
-              *ngIf="form?.controls?.['dateFrom']?.hasError('required')"
-            >
-              Este campo es requerido
-            </mat-error>
-            <mat-datepicker-toggle matSuffix [for]="dp">
-            </mat-datepicker-toggle>
-            <mat-datepicker #dp></mat-datepicker>
-          </mat-form-field>
-        </div>
-        <div fxFlex>
-          <mat-form-field fxFill appearance="fill">
-            <mat-label> Fecha hasta </mat-label>
-            <input
-              formControlName="dateTo"
-              matInput
-              [matDatepicker]="dp2"
-              placeholder="dd/mm/aaaa"
-            />
-            <mat-error *ngIf="form?.controls?.['dateTo']?.hasError('required')">
-              Este campo es requerido
-            </mat-error>
-            <mat-datepicker-toggle matSuffix [for]="dp2">
-            </mat-datepicker-toggle>
-            <mat-datepicker #dp2></mat-datepicker>
-          </mat-form-field>
-        </div>
-      </div>
-      <!-- Segunda columna -->
-      <div
-        fxLayout="row"
-        fxLayout.lt-md="column"
-        fxLayoutAlign="space-between center"
-        fxLayoutGap="10px"
-      >
-        <div fxFlex>
-          <mat-form-field appearance="fill" fxFill>
-            <mat-icon matPrefix>groups</mat-icon>
-            <mat-label>Nro huespedes</mat-label>
-            <input
-              matInput
-              type="number"
-              min="0"
-              formControlName="noPeople"
-              placeholder="Digite el número de huespedes"
-            />
-          </mat-form-field>
-        </div>
-        <div fxFlex>
-          <mat-form-field appearance="fill" fxFill>
-            <mat-icon matPrefix>alternate_email</mat-icon>
-            <mat-label>Correo eléctronico</mat-label>
-            <input
-              matInput
-              type="email"
-              formControlName="email"
-              placeholder="Digite el correo eléctronico"
-            />
-          </mat-form-field>
-        </div>
-        <div fxFlex>
-          <mat-form-field appearance="fill" fxFill>
-            <mat-icon matPrefix>meeting_room</mat-icon>
-            <mat-label>Nro habitación</mat-label>
-            <input
-              matInput
-              formControlName="idRoom"
-              placeholder="Digite el número de la habitación"
-            />
-          </mat-form-field>
-        </div>
-      </div>
-      <!-- Tercera columna -->
-      <div
-        fxLayout="row"
-        fxLayout.lt-md="column"
-        fxLayoutAlign="space-between center"
-        fxLayoutGap="10px"
-      >
         <div fxFlex>
           <mat-form-field appearance="fill" fxFill>
             <mat-icon matPrefix> hotel_class </mat-icon>
@@ -150,9 +67,9 @@
               placeholder="Busque y seleccione su destino"
               matInput
               formControlName="idDestination"
-              [matAutocomplete]="auto2"
+              [matAutocomplete]="auto"
             />
-            <mat-autocomplete autoActiveFirstOption #auto2="matAutocomplete">
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
               <mat-option
                 *ngFor="let option of filteredOptions | async"
                 [value]="option.name"

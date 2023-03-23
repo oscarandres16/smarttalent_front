@@ -47,7 +47,6 @@ export class FormDestinosComponent {
 
   continue() {
     if (this.form.valid) {
-      console.log(this.form.value);
       this.dashboardService
         .addDestination(this.form.value.name)
         .then((data: any) => {

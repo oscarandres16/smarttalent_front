@@ -1,0 +1,216 @@
+<div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+  <mat-card
+    class="consult-card-title"
+    fxLayout="row"
+    fxLayoutAlign="center center"
+    fxLayoutGap="10px"
+  >
+    <div fxFlex>
+      <button mat-mini-fab class="return-button" (click)="return()">
+        <mat-icon> arrow_back </mat-icon>
+      </button>
+    </div>
+    <div fxFlex="100" fxLayoutAlign="center center">
+      <h1 *ngIf="mode === 'add'" class="title-page">Agregar habitación</h1>
+      <h1 *ngIf="mode === 'edit'" class="title-page">
+        Editar - {{ roomInformation.name }}
+      </h1>
+      <h1 *ngIf="mode === 'view'" class="title-page">
+        {{ roomInformation.name }}
+      </h1>
+    </div>
+  </mat-card>
+  <mat-card class="consult-card-form">
+    <form
+      [formGroup]="form"
+      fxLayout="column"
+      fxLayoutGap="10px"
+      autocomplete="off"
+    >
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="10px"
+      >
+        <div fxFlex fxFill>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix>meeting_room</mat-icon>
+            <mat-label>Nro</mat-label>
+            <input
+              matInput
+              formControlName="nro"
+              placeholder="Digite el nombre de la destino"
+              maxlength="50"
+            />
+            <mat-error *ngIf="form?.controls?.['nro']?.hasError('required')">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex fxFill>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix>payments</mat-icon>
+            <mat-label>Precio base</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              formControlName="baseCost"
+              placeholder="Digite el precio base"
+            />
+            <mat-error
+              *ngIf="form?.controls?.['baseCost']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex fxFill>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-label>Porcentaje impuesto</mat-label>
+            <mat-icon matSuffix>percent</mat-icon>
+            <input
+              matInput
+              type="number"
+              min="0"
+              max="100"
+              formControlName="tax"
+              placeholder="Digite el porcentaje de impuesto"
+            />
+            <mat-error *ngIf="form?.controls?.['tax']?.hasError('required')">
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="10px"
+      >
+        <div fxFlex fxFill>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix>groups</mat-icon>
+            <mat-label>Máximo de huespedes</mat-label>
+            <input
+              matInput
+              type="number"
+              min="0"
+              formControlName="maxSize"
+              placeholder="Digite la cantidad máxima de huespedes"
+            />
+            <mat-error
+              *ngIf="form?.controls?.['maxSize']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex fxFill>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix> hotel_class </mat-icon>
+            <mat-label>Hotel</mat-label>
+            <input
+              type="text"
+              placeholder="Busque y seleccione su hotel"
+              matInput
+              formControlName="idHotel"
+              [matAutocomplete]="auto"
+            />
+            <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let option of filteredOptions | async"
+                [value]="option.name"
+              >
+                {{ option?.name }}
+              </mat-option>
+            </mat-autocomplete>
+            <mat-error
+              *ngIf="form?.controls?.['idHotel']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div fxFlex fxFill>
+          <mat-form-field appearance="fill" fxFill>
+            <mat-icon matPrefix> room_preferences </mat-icon>
+            <mat-label>Tipo de habitación</mat-label>
+            <mat-select formControlName="idRoomType">
+              <mat-option
+                *ngFor="let typeRoom of roomTypes$ | async"
+                [value]="typeRoom.id"
+              >
+                {{ typeRoom.name }}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="form?.controls?.['maxSize']?.hasError('required')"
+            >
+              Este campo es requerido
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div
+        fxLayout="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+        style="padding: 10px; background-color: #f5f5f5; border-radius: 5px"
+      >
+        <button
+          mat-stroked-button
+          type="button"
+          color="primary"
+          (click)="fileInput.click()"
+          style="background-color: white"
+        >
+          Escoger foto
+        </button>
+        <input
+          hidden
+          #fileInput
+          type="file"
+          id="file"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+        />
+        <span
+          class="file-name"
+          *ngIf="form?.controls?.['photos']?.value"
+          (click)="openSelectedPhotoAsBlob()"
+          >{{ photoFile.name }}</span
+        >
+      </div>
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <mat-checkbox class="example-margin" formControlName="state">
+          ¿Activo?
+        </mat-checkbox>
+      </div>
+      <div
+        fxLayout="row"
+        fxLayout.lt-md="column"
+        fxLayoutAlign="center center"
+        fxLayoutGap="10px"
+      >
+        <div fxFlex fxLayoutAlign="end">
+          <button mat-stroked-button color="primary" (click)="cleanForm()">
+            Limpiar formulario
+          </button>
+        </div>
+        <div fxFlex fxLayoutAlign="start">
+          <button mat-raised-button color="primary" (click)="continue()">
+            Consultar
+          </button>
+        </div>
+      </div>
+    </form>
+  </mat-card>
+</div>

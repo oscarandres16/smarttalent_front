@@ -30,35 +30,37 @@
           />
         </div>
         <div fxFlex="80" fxLayout="column" fxLayoutGap="10px">
-          <div
+          <a
             *ngFor="let item of mainNavbarRoutes"
             class="menu-item"
             fxLayout="row"
             fxLayoutAlign="start center"
             fxLayoutGap="15px"
-            (click)="navTo(item.route)"
+            routerLink="/dashboard/{{ item.route }}"
+            routerLinkActive="active"
           >
-            <div class="icon-menu-container-active">
+            <div class="icon-menu-container">
               <mat-icon>{{ item.icon }}</mat-icon>
             </div>
             <span>{{ item.label }}</span>
-          </div>
+          </a>
         </div>
       </div>
       <div fxLayout="column" fxFill fxFlex="50" fxLayoutAlign="end">
-        <div
+        <a
           *ngFor="let item of bottomNavbarRoutes"
           class="menu-item"
           fxLayout="row"
           fxLayoutAlign="start center"
           fxLayoutGap="15px"
-          (click)="navTo(item.route)"
+          routerLink="/dashboard/{{ item.route }}"
+          routerLinkActive="active"
         >
-          <div class="icon-menu-container-active">
+          <div class="icon-menu-container">
             <mat-icon>{{ item.icon }}</mat-icon>
           </div>
           <span>{{ item.label }}</span>
-        </div>
+        </a>
       </div>
     </div>
   </mat-sidenav>

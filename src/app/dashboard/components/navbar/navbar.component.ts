@@ -1,7 +1,8 @@
 import { SupabaseAuthService } from './../../../services/supabase-auth.service';
 import { Component, ViewChild } from '@angular/core';
 import { MatSidenav } from '@angular/material/sidenav';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd } from '@angular/router';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-navbar',
@@ -17,10 +18,20 @@ export class NavbarComponent {
 
   constructor(
     private router: Router,
-    private supabaseAuthService: SupabaseAuthService
+    private supabaseAuthService: SupabaseAuthService,
+    private route: ActivatedRoute
   ) {
     this.setNavbarRoutes();
     this.setBottomNavbarRoutes();
+    this.routeChange();
+  }
+
+  routeChange() {
+    this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        this.sidenav?.close();
+      });
   }
 
   setBottomNavbarRoutes() {
@@ -44,6 +55,11 @@ export class NavbarComponent {
         label: 'Hoteles',
         icon: 'hotel_class',
         route: 'hotels',
+      },
+      {
+        label: 'Habitaciones',
+        icon: 'bed',
+        route: 'rooms',
       },
       {
         label: 'Destinos',

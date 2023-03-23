@@ -1,15 +1,16 @@
 import { Component } from '@angular/core';
-import { FormBuilder, UntypedFormGroup } from '@angular/forms';
+import { UntypedFormGroup, FormBuilder } from '@angular/forms';
 import { Router } from '@angular/router';
-import { BehaviorSubject, map, Observable, startWith } from 'rxjs';
+import { BehaviorSubject, Observable, startWith, map } from 'rxjs';
 import Swal from 'sweetalert2';
 import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
-  templateUrl: './home.component.html',
-  styleUrls: ['./home.component.scss'],
+  selector: 'app-rooms',
+  templateUrl: './rooms.component.html',
+  styleUrls: ['./rooms.component.css'],
 })
-export class HomeComponent {
+export class RoomsComponent {
   form!: UntypedFormGroup;
   destinations$ = new BehaviorSubject<any[]>([]);
   hotels$ = new BehaviorSubject<any[]>([]);
@@ -44,12 +45,7 @@ export class HomeComponent {
 
   buildForm() {
     this.form = this.formBuilder.group({
-      id: ['' || null],
-      dateFrom: ['' || null],
-      dateTo: ['' || null],
-      noPeople: ['' || null],
-      email: ['' || null],
-      idRoom: ['' || null],
+      name: ['' || null],
       idHotel: ['' || null],
       idDestination: ['' || null],
     });
@@ -96,21 +92,21 @@ export class HomeComponent {
     const { name, idHotel, idDestination } = this.form.value;
     this.results$.next(null);
     if (name || idHotel || idDestination) {
-      this.getBookings();
+      this.getRooms();
     } else {
       this.form.setErrors({ oneRequired: true });
       this.form.markAsTouched();
     }
   }
 
-  addBooking() {
+  addRoom() {
     this.router.navigateByUrl('/dashboard/add-room');
   }
 
-  getBookings() {
-    this.dashboardService.getAllBookings().then(async (data: any) => {
+  getRooms() {
+    this.dashboardService.getRooms().then(async (data: any) => {
       if (data?.length > 0) {
-        const filteredData = await this.filterBookingData(data);
+        const filteredData = await this.filterRoomData(data);
         this.results$.next(filteredData);
         this.setOptionsTable(filteredData);
       } else {
@@ -123,32 +119,30 @@ export class HomeComponent {
     });
   }
 
-  async filterBookingData(data: any) {
+  async filterRoomData(data: any) {
     const { name, idDestination } = this.form.value;
     const idHotel = this.hotels$.value.filter((option: any) => {
       return option.name === this.form.value.idHotel;
     })[0]?.id;
-    return data
-      .filter((item: any) => {
-        return name
-          ? item.name.includes(name)
-          : true || idHotel
-          ? item.idHotel === idHotel
-          : true || idDestination
-          ? item.idDestination === idDestination
-          : true;
-      })
-      .map((item: any) => {
-        return {
-          ...item,
-          nameHotel: this.hotels$.value.filter((option: any) => {
-            return option.id === item.idHotel;
-          })[0]?.name,
-          nameDestination: this.hotels$.value.filter((option: any) => {
-            return option.id === item.idHotel;
-          })[0]?.Destinations?.name,
-        };
-      });
+    return data.filter((item: any) => {
+      return name
+        ? item.name.includes(name)
+        : true || idHotel
+        ? item.idHotel === idHotel
+        : true || idDestination
+        ? item.idDestination === idDestination
+        : true;
+    }).map((item: any) => {
+      return {
+        ...item,
+        nameHotel: this.hotels$.value.filter((option: any) => {
+          return option.id === item.idHotel;
+        })[0]?.name,
+        nameDestination:  this.hotels$.value.filter((option: any) => {
+          return option.id === item.idHotel;
+        })[0]?.Destinations?.name,
+      };
+    });
   }
 
   setOptionsTable(dataSource: any[] = []) {

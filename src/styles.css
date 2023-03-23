@@ -76,3 +76,12 @@ body {
 .mat-mdc-checkbox.mat-accent {
   --mdc-checkbox-selected-icon-color: #560eec;
 }
+
+.mat-mdc-raised-button.mat-primary {
+  --mdc-protected-button-container-color: #560eec !important;
+  --mdc-protected-button-label-text-color: white !important;
+}
+
+.mat-mdc-outlined-button:not(:disabled) {
+  color: #560eec !important;
+}
